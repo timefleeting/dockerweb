@@ -3,7 +3,7 @@
 
 if [ "${PHP_EXTENSIONS}" != "" ]; then
     echo "---------- Install general dependencies ----------"
-    apk add --no-cache autoconf g++ libtool make curl-dev libxml2-dev linux-headers
+    apt-get update
 fi
 
 if [ -z "${EXTENSIONS##*,pdo_mysql,*}" ]; then
@@ -108,13 +108,14 @@ fi
 
 if [ -z "${EXTENSIONS##*,pdo_pgsql,*}" ]; then
     echo "---------- Install pdo_pgsql ----------"
-    apk --no-cache add postgresql-dev \
+    apt-get install -y libpq-dev \
     && docker-php-ext-install ${MC} pdo_pgsql
 fi
 
 if [ -z "${EXTENSIONS##*,pgsql,*}" ]; then
     echo "---------- Install pgsql ----------"
-    apk --no-cache add postgresql-dev \
+    apt-get install -y libpq-dev \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install ${MC} pgsql
 fi
 
@@ -141,20 +142,19 @@ fi
 
 if [ -z "${EXTENSIONS##*,gd,*}" ]; then
     echo "---------- Install gd ----------"
-    apk add --no-cache freetype-dev libjpeg-turbo-dev libpng-dev \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    apt-get install -y libfreetype6-dev libpng-dev libjpeg-dev \
     && docker-php-ext-install ${MC} gd
 fi
 
 if [ -z "${EXTENSIONS##*,intl,*}" ]; then
     echo "---------- Install intl ----------"
-    apk add --no-cache icu-dev
+    apt-get install -y libicu-dev
     docker-php-ext-install ${MC} intl
 fi
 
 if [ -z "${EXTENSIONS##*,bz2,*}" ]; then
     echo "---------- Install bz2 ----------"
-    apk add --no-cache bzip2-dev
+    apt-get install -y bzip2 libbz2-dev
     docker-php-ext-install ${MC} bz2
 fi
 
@@ -165,21 +165,16 @@ fi
 
 if [ -z "${EXTENSIONS##*,xsl,*}" ]; then
     echo "---------- Install xsl ----------"
-	apk add --no-cache libxslt-dev
+	apt-get install -y libxslt-dev
 	docker-php-ext-install ${MC} xsl
 fi
 
 if [ -z "${EXTENSIONS##*,xmlrpc,*}" ]; then
     echo "---------- Install xmlrpc ----------"
-	apk add --no-cache libxslt-dev
+	apt-get install -y libxslt-dev
 	docker-php-ext-install ${MC} xmlrpc
 fi
 
-if [ -z "${EXTENSIONS##*,wddx,*}" ]; then
-    echo "---------- Install wddx ----------"
-	apk add --no-cache libxslt-dev
-	docker-php-ext-install ${MC} wddx
-fi
 
 if [ -z "${EXTENSIONS##*,curl,*}" ]; then
     echo "---------- Install curl ----------"
@@ -188,62 +183,57 @@ fi
 
 if [ -z "${EXTENSIONS##*,readline,*}" ]; then
     echo "---------- Install readline ----------"
-	apk add --no-cache readline-dev
-	apk add --no-cache libedit-dev
 	docker-php-ext-install ${MC} readline
 fi
 
 if [ -z "${EXTENSIONS##*,snmp,*}" ]; then
     echo "---------- Install snmp ----------"
-	apk add --no-cache net-snmp-dev
+	apt-get install -y libsnmp-dev
 	docker-php-ext-install ${MC} snmp
 fi
 
 if [ -z "${EXTENSIONS##*,pspell,*}" ]; then
     echo "---------- Install pspell ----------"
-	apk add --no-cache aspell-dev
-	apk add --no-cache aspell-en
+	apt-get install -y libpspell-dev
 	docker-php-ext-install ${MC} pspell
 fi
 
 if [ -z "${EXTENSIONS##*,recode,*}" ]; then
     echo "---------- Install recode ----------"
-	apk add --no-cache recode-dev
+	apt-get install -y librecode-dev
 	docker-php-ext-install ${MC} recode
 fi
 
 if [ -z "${EXTENSIONS##*,gmp,*}" ]; then
     echo "---------- Install gmp ----------"
-	apk add --no-cache gmp-dev
+	apt-get install -y libgmp-dev
 	docker-php-ext-install ${MC} gmp
 fi
 
 if [ -z "${EXTENSIONS##*,imap,*}" ]; then
     echo "---------- Install imap ----------"
-	apk add --no-cache imap-dev
+	apt-get install -y libc-client-dev libkrb5-dev
     docker-php-ext-configure imap --with-imap --with-imap-ssl
 	docker-php-ext-install ${MC} imap
 fi
 
 if [ -z "${EXTENSIONS##*,ldap,*}" ]; then
     echo "---------- Install ldap ----------"
-	apk add --no-cache ldb-dev
-	apk add --no-cache openldap-dev
+	apt-get install -y libldap2-dev
 	docker-php-ext-install ${MC} ldap
 fi
 
 if [ -z "${EXTENSIONS##*,imagick,*}" ]; then
     echo "---------- Install imagick ----------"
-	apk add --no-cache file-dev
-	apk add --no-cache imagemagick-dev
+	apt-get install -y libmagickwand-dev
     printf "\n" | pecl install imagick-3.4.4
     docker-php-ext-enable imagick
 fi
 
 if [ -z "${EXTENSIONS##*,amqp,*}" ]; then
     echo "---------- Install amqp ----------"
-    apk add --no-cache rabbitmq-c-dev
-    pecl install amqp-1.9.4.tgz
+    apt-get install -y librabbitmq-dev
+    pecl install amqp
     docker-php-ext-enable amqp
 fi
 
@@ -255,7 +245,7 @@ fi
 
 if [ -z "${EXTENSIONS##*,memcached,*}" ]; then
     echo "---------- Install memcached ----------"
-	apk add --no-cache libmemcached-dev zlib-dev
+    apt-get install -y zlib1g-dev libmemcached-dev
     printf "\n" | pecl install memcached-3.1.3
     docker-php-ext-enable memcached
 fi
@@ -293,14 +283,14 @@ fi
 
 if [ -z "${EXTENSIONS##*,pdo_sqlsrv,*}" ]; then
     echo "---------- Install pdo_sqlsrv ----------"
-	apk add --no-cache unixodbc-dev
+    apt-get install -y unixodbc-dev
     pecl install pdo_sqlsrv
     docker-php-ext-enable pdo_sqlsrv
 fi
 
 if [ -z "${EXTENSIONS##*,sqlsrv,*}" ]; then
     echo "---------- Install sqlsrv ----------"
-	apk add --no-cache unixodbc-dev
+	apt-get install -y unixodbc-dev
     printf "\n" | pecl install sqlsrv
     docker-php-ext-enable sqlsrv
 fi
