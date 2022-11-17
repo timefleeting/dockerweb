@@ -115,7 +115,7 @@ services:
       args:
         TZ: "$TZ"
         NODE_VERSION: ${NODE_VERSION}
-    privileged: true
+    #privileged: true
     volumes:
       - ${APPPATH}:${WWWHTML}:rw
     environment:

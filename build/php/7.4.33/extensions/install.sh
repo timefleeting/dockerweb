@@ -13,42 +13,42 @@ fi
 
 if [ -z "${EXTENSIONS##*,zip,*}" ]; then
     echo "---------- Install zip ----------"
-	docker-php-ext-install ${MC} zip
+    docker-php-ext-install ${MC} zip
 fi
 
 if [ -z "${EXTENSIONS##*,pcntl,*}" ]; then
     echo "---------- Install pcntl ----------"
-	docker-php-ext-install ${MC} pcntl
+    docker-php-ext-install ${MC} pcntl
 fi
 
 if [ -z "${EXTENSIONS##*,mysqli,*}" ]; then
     echo "---------- Install mysqli ----------"
-	docker-php-ext-install ${MC} mysqli
+    docker-php-ext-install ${MC} mysqli
 fi
 
 if [ -z "${EXTENSIONS##*,mbstring,*}" ]; then
     echo "---------- Install mbstring ----------"
-	docker-php-ext-install ${MC} mbstring
+    docker-php-ext-install ${MC} mbstring
 fi
 
 if [ -z "${EXTENSIONS##*,exif,*}" ]; then
     echo "---------- Install exif ----------"
-	docker-php-ext-install ${MC} exif
+    docker-php-ext-install ${MC} exif
 fi
 
 if [ -z "${EXTENSIONS##*,bcmath,*}" ]; then
     echo "---------- Install bcmath ----------"
-	docker-php-ext-install ${MC} bcmath
+    docker-php-ext-install ${MC} bcmath
 fi
 
 if [ -z "${EXTENSIONS##*,calendar,*}" ]; then
     echo "---------- Install calendar ----------"
-	docker-php-ext-install ${MC} calendar
+    docker-php-ext-install ${MC} calendar
 fi
 
 if [ -z "${EXTENSIONS##*,zend_test,*}" ]; then
     echo "---------- Install zend_test ----------"
-	docker-php-ext-install ${MC} zend_test
+    docker-php-ext-install ${MC} zend_test
 fi
 
 if [ -z "${EXTENSIONS##*,opcache,*}" ]; then
@@ -58,52 +58,52 @@ fi
 
 if [ -z "${EXTENSIONS##*,sockets,*}" ]; then
     echo "---------- Install sockets ----------"
-	docker-php-ext-install ${MC} sockets
+    docker-php-ext-install ${MC} sockets
 fi
 
 if [ -z "${EXTENSIONS##*,gettext,*}" ]; then
     echo "---------- Install gettext ----------"
-	docker-php-ext-install ${MC} gettext
+    docker-php-ext-install ${MC} gettext
 fi
 
 if [ -z "${EXTENSIONS##*,shmop,*}" ]; then
     echo "---------- Install shmop ----------"
-	docker-php-ext-install ${MC} shmop
+    docker-php-ext-install ${MC} shmop
 fi
 
 if [ -z "${EXTENSIONS##*,sysvmsg,*}" ]; then
     echo "---------- Install sysvmsg ----------"
-	docker-php-ext-install ${MC} sysvmsg
+    docker-php-ext-install ${MC} sysvmsg
 fi
 
 if [ -z "${EXTENSIONS##*,sysvsem,*}" ]; then
     echo "---------- Install sysvsem ----------"
-	docker-php-ext-install ${MC} sysvsem
+    docker-php-ext-install ${MC} sysvsem
 fi
 
 if [ -z "${EXTENSIONS##*,sysvshm,*}" ]; then
     echo "---------- Install sysvshm ----------"
-	docker-php-ext-install ${MC} sysvshm
+    docker-php-ext-install ${MC} sysvshm
 fi
 
 if [ -z "${EXTENSIONS##*,pdo_firebird,*}" ]; then
     echo "---------- Install pdo_firebird ----------"
-	docker-php-ext-install ${MC} pdo_firebird
+    docker-php-ext-install ${MC} pdo_firebird
 fi
 
 if [ -z "${EXTENSIONS##*,pdo_dblib,*}" ]; then
     echo "---------- Install pdo_dblib ----------"
-	docker-php-ext-install ${MC} pdo_dblib
+    docker-php-ext-install ${MC} pdo_dblib
 fi
 
 if [ -z "${EXTENSIONS##*,pdo_oci,*}" ]; then
     echo "---------- Install pdo_oci ----------"
-	docker-php-ext-install ${MC} pdo_oci
+    docker-php-ext-install ${MC} pdo_oci
 fi
 
 if [ -z "${EXTENSIONS##*,pdo_odbc,*}" ]; then
     echo "---------- Install pdo_odbc ----------"
-	docker-php-ext-install ${MC} pdo_odbc
+    docker-php-ext-install ${MC} pdo_odbc
 fi
 
 if [ -z "${EXTENSIONS##*,pdo_pgsql,*}" ]; then
@@ -121,29 +121,30 @@ fi
 
 if [ -z "${EXTENSIONS##*,oci8,*}" ]; then
     echo "---------- Install oci8 ----------"
-	docker-php-ext-install ${MC} oci8
+    docker-php-ext-install ${MC} oci8
 fi
 
 if [ -z "${EXTENSIONS##*,odbc,*}" ]; then
     echo "---------- Install odbc ----------"
-	docker-php-ext-install ${MC} odbc
+    docker-php-ext-install ${MC} odbc
 fi
 
 if [ -z "${EXTENSIONS##*,dba,*}" ]; then
     echo "---------- Install dba ----------"
-	docker-php-ext-install ${MC} dba
+    docker-php-ext-install ${MC} dba
 fi
 
 if [ -z "${EXTENSIONS##*,interbase,*}" ]; then
     echo "---------- Install interbase ----------"
     echo "Alpine linux do not support interbase/firebird!!!"
-	#docker-php-ext-install ${MC} interbase
+    #docker-php-ext-install ${MC} interbase
 fi
 
 if [ -z "${EXTENSIONS##*,gd,*}" ]; then
     echo "---------- Install gd ----------"
-    apt-get install -y libfreetype6-dev libpng-dev libjpeg-dev \
-    && docker-php-ext-install ${MC} gd
+    apt-get install -y libfreetype6-dev libpng-dev libjpeg-dev libwebp-dev
+    docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp
+    docker-php-ext-install ${MC} gd
 fi
 
 if [ -z "${EXTENSIONS##*,intl,*}" ]; then
@@ -160,72 +161,72 @@ fi
 
 if [ -z "${EXTENSIONS##*,soap,*}" ]; then
     echo "---------- Install soap ----------"
-	docker-php-ext-install ${MC} soap
+    docker-php-ext-install ${MC} soap
 fi
 
 if [ -z "${EXTENSIONS##*,xsl,*}" ]; then
     echo "---------- Install xsl ----------"
-	apt-get install -y libxslt-dev
-	docker-php-ext-install ${MC} xsl
+    apt-get install -y libxslt-dev
+    docker-php-ext-install ${MC} xsl
 fi
 
 if [ -z "${EXTENSIONS##*,xmlrpc,*}" ]; then
     echo "---------- Install xmlrpc ----------"
-	apt-get install -y libxslt-dev
-	docker-php-ext-install ${MC} xmlrpc
+    apt-get install -y libxslt-dev
+    docker-php-ext-install ${MC} xmlrpc
 fi
 
 
 if [ -z "${EXTENSIONS##*,curl,*}" ]; then
     echo "---------- Install curl ----------"
-	docker-php-ext-install ${MC} curl
+    docker-php-ext-install ${MC} curl
 fi
 
 if [ -z "${EXTENSIONS##*,readline,*}" ]; then
     echo "---------- Install readline ----------"
-	docker-php-ext-install ${MC} readline
+    docker-php-ext-install ${MC} readline
 fi
 
 if [ -z "${EXTENSIONS##*,snmp,*}" ]; then
     echo "---------- Install snmp ----------"
-	apt-get install -y libsnmp-dev
-	docker-php-ext-install ${MC} snmp
+    apt-get install -y libsnmp-dev
+    docker-php-ext-install ${MC} snmp
 fi
 
 if [ -z "${EXTENSIONS##*,pspell,*}" ]; then
     echo "---------- Install pspell ----------"
-	apt-get install -y libpspell-dev
-	docker-php-ext-install ${MC} pspell
+    apt-get install -y libpspell-dev
+    docker-php-ext-install ${MC} pspell
 fi
 
 if [ -z "${EXTENSIONS##*,recode,*}" ]; then
     echo "---------- Install recode ----------"
-	apt-get install -y librecode-dev
-	docker-php-ext-install ${MC} recode
+    apt-get install -y librecode-dev
+    docker-php-ext-install ${MC} recode
 fi
 
 if [ -z "${EXTENSIONS##*,gmp,*}" ]; then
     echo "---------- Install gmp ----------"
-	apt-get install -y libgmp-dev
-	docker-php-ext-install ${MC} gmp
+    apt-get install -y libgmp-dev
+    docker-php-ext-install ${MC} gmp
 fi
 
 if [ -z "${EXTENSIONS##*,imap,*}" ]; then
     echo "---------- Install imap ----------"
-	apt-get install -y libc-client-dev libkrb5-dev
+    apt-get install -y libc-client-dev libkrb5-dev
     docker-php-ext-configure imap --with-imap --with-imap-ssl
-	docker-php-ext-install ${MC} imap
+    docker-php-ext-install ${MC} imap
 fi
 
 if [ -z "${EXTENSIONS##*,ldap,*}" ]; then
     echo "---------- Install ldap ----------"
-	apt-get install -y libldap2-dev
-	docker-php-ext-install ${MC} ldap
+    apt-get install -y libldap2-dev
+    docker-php-ext-install ${MC} ldap
 fi
 
 if [ -z "${EXTENSIONS##*,imagick,*}" ]; then
     echo "---------- Install imagick ----------"
-	apt-get install -y libmagickwand-dev
+    apt-get install -y libmagickwand-dev
     printf "\n" | pecl install imagick-3.4.4
     docker-php-ext-enable imagick
 fi
@@ -290,7 +291,7 @@ fi
 
 if [ -z "${EXTENSIONS##*,sqlsrv,*}" ]; then
     echo "---------- Install sqlsrv ----------"
-	apt-get install -y unixodbc-dev
+    apt-get install -y unixodbc-dev
     printf "\n" | pecl install sqlsrv
     docker-php-ext-enable sqlsrv
 fi

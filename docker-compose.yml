@@ -15,7 +15,7 @@ services:
     restart: always
     ports:
       - "22222:22"
-    privileged: true
+    #privileged: true
     #user: root
     environment:
       TZ: "$TZ" 
@@ -39,7 +39,7 @@ services:
     ports:
       - "${NGINX_HTTP_HOST_PORT}:80"
       - "${NGINX_HTTPS_HOST_PORT}:443"
-    privileged: true
+    #privileged: true
     environment:
       TZ: "$TZ" 
     networks:
@@ -61,7 +61,7 @@ services:
       - "${MYSQL_HOST_PORT}:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
-    privileged: true
+    #privileged: true
     networks:
       - default
 
@@ -77,7 +77,7 @@ services:
         WWWHTML: ${WWWHTML}
     ports:
       - "${PHP_HOST_PORT}:9000"
-    privileged: true
+    #privileged: true
     volumes:
       - ${APPPATH}:${WWWHTML}:rw
       - ${PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
@@ -104,7 +104,7 @@ services:
       - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
     restart: always
     entrypoint: ["redis-server", "/etc/redis.conf"]
-    privileged: true
+    #privileged: true
     networks:
       - default
 
@@ -115,7 +115,7 @@ services:
       args:
         TZ: "$TZ"
         NODE_VERSION: ${NODE_VERSION}
-    privileged: true
+    #privileged: true
     volumes:
       - ${APPPATH}:${WWWHTML}:rw
     environment:
