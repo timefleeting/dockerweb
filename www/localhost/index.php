@@ -1,7 +1,7 @@
 <?php 
 //phpinfo();
 
-echo '<h1 style="text-align: center;">欢迎使用DNMP-PLUS！</h1>';
+echo '<h1 style="text-align: center;">欢迎使用dockerweb！</h1>';
 echo '<h2>版本信息</h2>';
 
 echo '<ul>';
