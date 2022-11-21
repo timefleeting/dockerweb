@@ -1,0 +1,5 @@
+/.vscode/
+*.webp
+.DS_Store
+*/.DS_Store
+.bowerrc
