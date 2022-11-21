@@ -26,7 +26,8 @@ function getMysqlVersion()
     }
 
     try {
-        $dbh  = new PDO('mysql:host=mysql;dbname=mysql', 'root', '123456');
+        //注意密码根据.evn环境变量
+        $dbh  = new PDO('mysql:host=mysql;dbname=mysql', 'root', 'Netflying1101');
         $sth  = $dbh->query('SELECT VERSION() as version');
         $info = $sth->fetch();
     } catch (PDOException $e) {
@@ -68,6 +69,8 @@ function getRedisVersion()
     try {
         $redis = new Redis();
         $redis->connect('redis', 6379);
+        //密码在/etc/redis/xxx/redis.conf
+        $auth = $redis->auth('foobared');
         $info = $redis->info();
 
         return $info['redis_version'];
